@@ -1,36 +1,36 @@
 {
   "summary": {
     "total_sales": 340302500.0,
-    "top_state": "Victoria!",
+    "top_state": "Victoria",
     "top_group": "Men"
   },
   "state_sales": [
     {
-      "State": "Victoria!",
+      "State": "Victoria",
       "Sales": 105565000
     },
     {
-      "State": "New South Wales!",
+      "State": "New South Wales",
       "Sales": 74970000
     },
     {
-      "State": "South Australia!",
+      "State": "South Australia",
       "Sales": 58857500
     },
     {
-      "State": "Queensland!",
+      "State": "Queensland",
       "Sales": 33417500
     },
     {
-      "State": "Tasmania!",
+      "State": "Tasmania",
       "Sales": 22760000
     },
     {
-      "State": "Northern Territory!",
+      "State": "Northern Territory",
       "Sales": 22580000
     },
     {
-      "State": "Western Australia!",
+      "State": "Western Australia",
       "Sales": 22152500
     }
   ],
