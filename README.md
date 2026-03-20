@@ -1,6 +1,6 @@
 # sales-dashboard-nextjs-python
-A data analysis and visualization project using Python and Next.js.
 
+A data analysis and visualization project using Python and Next.js.
 
 # Sales Dashboard (Python + Next.js)
 
@@ -12,20 +12,20 @@ This app processes retail sales data using Python (Pandas) and displays insights
 
 ## 🚀 Features
 
-* CSV data processing with Python
-* Sales aggregation by state and demographic group
-* Clean JSON data pipeline
-* Next.js frontend dashboard
-* Tailwind UI styling
+- CSV data processing with Python
+- Sales aggregation by state and demographic group
+- Clean JSON data pipeline
+- Next.js frontend dashboard
+- Tailwind UI styling
 
 ---
 
 ## 🧱 Tech Stack
 
-* **Python** (Pandas, NumPy)
-* **Next.js** (React)
-* **Tailwind CSS**
-* **Node.js / pnpm**
+- **Python** (Pandas, NumPy)
+- **Next.js** (React)
+- **Tailwind CSS**
+- **Node.js / pnpm**
 
 ---
 
@@ -54,24 +54,24 @@ pnpm dev
 ## 📁 Project Structure
 
 sales-dashboard/
-├── analysis/       # Python data processing
-├── frontend/       # Next.js app
+├── analysis/ # Python data processing
+├── frontend/ # Next.js app
 └── README.md
 
 ---
 
 ## 📌 Notes
 
-* The dataset is based on Australian retail sales.
-* States are mapped from abbreviations (e.g., NSW → New South Wales).
-* Data is read directly from the backend output (no manual copying).
+- The dataset is based on Australian retail sales.
+- States are mapped from abbreviations (e.g., NSW → New South Wales).
+- Data is read directly from the backend output (no manual copying).
 
 ---
 
 ## 🚧 In Progress
 
-* Data visualizations (charts)
-* Improved UI/UX
-* Additional analysis (time-based insights)
+- Data visualizations (charts)
+- Improved UI/UX
+- Additional analysis (time-based insights)
 
 ---
