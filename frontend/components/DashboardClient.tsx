@@ -2,8 +2,8 @@
 
 import type { SalesData } from "@/Types/sales";
 import {
-  // BarChart,
-  // Bar,
+  BarChart,
+  Bar,
   CartesianGrid,
   LineChart,
   Line,
@@ -44,21 +44,6 @@ function formatDateLabel(date: string) {
   });
 }
 
-// function formatMonthLabel(date: string) {
-//   return new Date(date).toLocaleDateString("en-AU", {
-//     month: "short",
-//     year: "numeric",
-//   });
-// }
-
-// function formatNullableCurrency(value: number | null) {
-//   return value !== null ? formatCurrency(value) : "N/A";
-// }
-
-// function formatNullableNumber(value: number | null) {
-//   return value !== null ? formatNumber(value) : "N/A";
-// }
-
 function tooltipCurrency(value: unknown) {
   return typeof value === "number" ? formatCurrency(value) : "N/A";
 }
@@ -69,10 +54,13 @@ export default function DashboardClient({ data }: Props) {
     shortDate: formatDateLabel(item.Date),
   }));
 
-  // const monthlyTrend = data.time_series.monthly.map((item) => ({
-  //   ...item,
-  //   shortDate: formatMonthLabel(item.Date),
-  // }));
+  const monthlyTrend = data.time_series.monthly.map((item) => ({
+    ...item,
+    shortDate: new Date(item.Date).toLocaleDateString("en-AU", {
+      month: "short",
+      year: "numeric",
+    }),
+  }));
 
   const topState = data.state_sales[0];
   const secondState = data.state_sales[1];
@@ -133,6 +121,163 @@ export default function DashboardClient({ data }: Props) {
           </div>
         </section>
 
+        <section className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold">Sales Statistics</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Mean</span>
+                <span className="font-medium">
+                  {formatCurrency(data.statistics.sales.mean)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Median</span>
+                <span className="font-medium">
+                  {formatCurrency(data.statistics.sales.median)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Mode</span>
+                <span className="font-medium">
+                  {data.statistics.sales.mode
+                    ? formatCurrency(data.statistics.sales.mode)
+                    : "N/A"}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Std Dev</span>
+                <span className="font-medium">
+                  {formatCurrency(data.statistics.sales.std_dev)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold">Unit Statistics</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Mean</span>
+                <span className="font-medium">
+                  {formatNumber(data.statistics.units.mean)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Median</span>
+                <span className="font-medium">
+                  {formatNumber(data.statistics.units.median)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Mode</span>
+                <span className="font-medium">
+                  {data.statistics.units.mode
+                    ? formatNumber(data.statistics.units.mode)
+                    : "N/A"}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-slate-600">Std Dev</span>
+                <span className="font-medium">
+                  {formatNumber(data.statistics.units.std_dev)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold">State Sales</h2>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data.state_sales}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="State" />
+                  <YAxis tickFormatter={formatShortCurrency} />
+                  <Tooltip formatter={(value) => tooltipCurrency(value)} />
+                  <Bar dataKey="Sales" fill="#3b82f6" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold">State Sales Ranking</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="pb-2 text-left font-medium text-slate-600">
+                      Rank
+                    </th>
+                    <th className="pb-2 text-left font-medium text-slate-600">
+                      State
+                    </th>
+                    <th className="pb-2 text-right font-medium text-slate-600">
+                      Sales
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.state_sales.map((item, index) => (
+                    <tr key={item.State} className="border-b border-slate-100">
+                      <td className="py-2 font-medium">{index + 1}</td>
+                      <td className="py-2">{item.State}</td>
+                      <td className="py-2 text-right font-medium">
+                        {formatCurrency(item.Sales)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold">Group Sales</h2>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data.group_sales}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="Group" />
+                  <YAxis
+                    tickFormatter={formatShortCurrency}
+                    ticks={[80000000, 90000000]}
+                  />
+                  <Tooltip formatter={(value) => tooltipCurrency(value)} />
+                  <Bar dataKey="Sales" fill="#10b981" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold">Group Sales Ranking</h2>
+            <div className="space-y-3">
+              {data.group_sales.map((item, index) => (
+                <div
+                  key={item.Group}
+                  className="flex items-center justify-between rounded-lg bg-slate-50 p-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 text-xs font-medium">
+                      {index + 1}
+                    </span>
+                    <span className="font-medium">{item.Group}</span>
+                  </div>
+                  <span className="font-semibold text-slate-900">
+                    {formatCurrency(item.Sales)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="grid gap-6 xl:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm xl:col-span-2">
             <h2 className="mb-4 text-xl font-semibold">Weekly Sales Trend</h2>
@@ -184,6 +329,30 @@ export default function DashboardClient({ data }: Props) {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="mb-4 text-xl font-semibold">Monthly Sales Trend</h2>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={monthlyTrend}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="shortDate" />
+                <YAxis tickFormatter={formatShortCurrency} />
+                <Tooltip
+                  formatter={(value) => tooltipCurrency(value)}
+                  labelFormatter={(label) => `Month: ${label}`}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="Sales"
+                  strokeWidth={3}
+                  dot={{ r: 3 }}
+                  stroke="#f59e0b"
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </section>
       </div>
