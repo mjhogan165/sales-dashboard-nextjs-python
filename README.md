@@ -1,77 +1,98 @@
-# sales-dashboard-nextjs-python
+# 📊 Sales Dashboard (Next.js + Python)
 
-A data analysis and visualization project using Python and Next.js.
-
-# Sales Dashboard (Python + Next.js)
-
-A full-stack data analysis and visualization project.
-
-This app processes retail sales data using Python (Pandas) and displays insights in a Next.js dashboard.
+A full-stack data dashboard that transforms raw CSV sales data into interactive visual insights.
 
 ---
 
 ## 🚀 Features
 
-- CSV data processing with Python
-- Sales aggregation by state and demographic group
-- Clean JSON data pipeline
-- Next.js frontend dashboard
-- Tailwind UI styling
+* 📁 CSV → cleaned and processed with Python (Pandas)
+* 📈 Interactive charts using React + Recharts
+* 🧠 Aggregated metrics (top states, groups, trends)
+* ⏱ Time-based analysis (weekly, monthly, quarterly)
+* 🎯 Clean UI built with Next.js + Tailwind
 
 ---
 
-## 🧱 Tech Stack
+## 📸 Preview
 
-- **Python** (Pandas, NumPy)
-- **Next.js** (React)
-- **Tailwind CSS**
-- **Node.js / pnpm**
+![Dashboard Screenshot](../screenshots/dashboard.png)
 
 ---
 
-## 📊 Data Flow
+## 🧠 Architecture
 
-CSV → Python (analysis) → JSON → Next.js → UI
+```plaintext
+CSV Data
+   ↓
+Python (Pandas cleaning + aggregation)
+   ↓
+results.json
+   ↓
+Next.js Dashboard (Recharts UI)
+```
 
 ---
 
-## ▶️ How to Run
+## 🛠 Tech Stack
 
-### 1. Run data processing (Python)
+**Frontend**
 
+* Next.js (App Router)
+* React + TypeScript
+* Tailwind CSS
+* Recharts
+
+**Backend / Data Processing**
+
+* Python
+* Pandas
+
+---
+
+## ⚙️ How It Works
+
+1. Load raw CSV data
+2. Clean and normalize values
+3. Aggregate metrics (sales, units, trends)
+4. Export to `results.json`
+5. Frontend reads and visualizes data
+
+---
+
+## 📦 Running the Project
+
+### Python (data processing)
+
+```bash
 cd analysis
-py process_data.py
+python process_data.py
+```
 
----
+### Frontend
 
-### 2. Run frontend (Next.js)
-
+```bash
 cd frontend
-pnpm dev
+npm install
+npm run dev
+```
 
 ---
 
-## 📁 Project Structure
+## 🎯 Future Improvements
 
-sales-dashboard/
-├── analysis/ # Python data processing
-├── frontend/ # Next.js app
-└── README.md
-
----
-
-## 📌 Notes
-
-- The dataset is based on Australian retail sales.
-- States are mapped from abbreviations (e.g., NSW → New South Wales).
-- Data is read directly from the backend output (no manual copying).
+* API layer instead of static JSON
+* Filtering (date range, region, product group)
+* Dark mode
+* Live data updates
 
 ---
 
-## 🚧 In Progress
+## 💡 Why This Project?
 
-- Data visualizations (charts)
-- Improved UI/UX
-- Additional analysis (time-based insights)
+This project demonstrates:
 
----
+* Data cleaning & transformation
+* Backend-to-frontend data flow
+* Modern frontend dashboard design
+* Real-world data visualization patterns
