@@ -16,7 +16,8 @@ A full-stack data dashboard that transforms raw CSV sales data into interactive 
 
 ## 📸 Preview
 
-![Dashboard Screenshot](../screenshots/dashboard.png)
+<img width="892" height="633" alt="dashboard" src="https://github.com/user-attachments/assets/d68a7a55-10ff-4f56-ba2a-5595c7d4e8ed" />
+
 
 ---
 
